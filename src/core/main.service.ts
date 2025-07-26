@@ -19,7 +19,6 @@ export class MainService {
     const ling = this.url + 'login';
     return this._http.get<any>(ling,{
       params: params,
-      headers:{ 'Content-Type': 'application/json' },
       observe: 'response'
     });
   }
@@ -33,7 +32,6 @@ export class MainService {
         mediaId
       }
       return this._http.post<any>(ling, body,{
-        headers: { 'Content-Type': 'application/json' },
         observe: 'response'
       });
   }

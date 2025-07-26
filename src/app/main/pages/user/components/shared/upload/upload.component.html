@@ -1,0 +1,41 @@
+<div class=" mx-auto aea rounded-lg overflow-y-auto max-h-[550px] p-4" @fade>
+  <!-- Video Upload Section -->
+  <div class="mb-4 flex justify-between items-start">
+ <div>
+       <label class="block text-white  font-semibold mb-2">Publiar</label>
+    <input type="file" accept="video/mp4,video/mov,image/png,image/jpeg" (change)="onFileSelected($event)"
+      class="block w-full !border-none text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600" />
+ </div>
+      <button class="h-6 w-6 text-white" (click)="close()" ><i class="ti ti-x text-[20px]"></i></button>
+  </div>
+
+  <!-- Video Preview -->
+  <div *ngIf="videoUrl" class="relative hover:transns w-full aspect-[9/16] max-h-[230px]  rounded-lg overflow-hidden">
+    <video [src]="videoUrl" controls class="w-full h-full object-cover">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div *ngIf="imageUrl">
+    <img [src]="imageUrl" alt="Selected image" style="max-width: 400px;">
+  </div>
+  <div class="mt-4">
+    <label class="block  font-semibold mb-2 text-white ">Titulo</label>
+    <input [(ngModel)]="hashtags" type="text" placeholder="#hashtag1 #hashtag2"
+      class="w-full p-2 bg-transparent hash text-white  border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-700" />
+  </div>
+  <!-- Caption and Hashtags -->
+  <div class="mt-4">
+    <label class="block font-semibold mb-2 text-white ">Descripcion</label>
+    <textarea matInput [(ngModel)]="description" placeholder="Descripcion..."
+      class="w-full p-2 border rounded-lg focus:outline-none  text-white  focus:ring-2 focus:ring-purple-700 bg-transparent border-white "
+      rows="4"></textarea>
+  </div>
+
+
+  <!-- Post Button -->
+  <button (click)="postMedia()" [disabled]="!selectedFile || posting"
+    class="mt-4 w-full bg-primary text-white py-2 rounded-lg hover:bg-purple-800 disabled:bg-gray-400">
+    {{ posting ? 'Posting...' : (videoUrl ? 'Publicar Video' : 'Publicar Foto') }}
+  </button>
+  <div *ngIf="uploadMessage" class="mt-2 text-center text-green-600">{{ uploadMessage }}</div>
+</div>

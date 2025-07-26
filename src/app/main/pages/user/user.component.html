@@ -1,0 +1,102 @@
+<div class="bg-[#2a2929] text-white mt-10 flex flex-col gap-5 w-full p-4  min-w-[300px] max-w-screen-2xl m-auto">
+
+  <div class="flex justify-between items-center mb-4">
+    <div class="flex items-center">
+         @if(!isMyProfile()){
+          <button mat-button
+         [routerLink]="'/' + _globalService.user()?.username"
+           class="mr-4 rounded-full borde_contenedor py-3 min-w-fit ">
+      <i class="ti ti-arrow-left text-[25px]"  ></i>
+    </button>
+         }
+         @if(isMyProfile()){
+                 <img [src]="_globalService.user()?.avatarUrl || 'https://ui-avatars.com/api/?name=' + _globalService.user()?.username"
+         alt="avatar"
+         class="w-24 h-24 rounded-full object-cover">
+         }@else {
+           <img [src]="( _globalService.profileUser | async )?.avatarUrl || 'https://ui-avatars.com/api/?name=' + ( _globalService.profileUser | async )?.username"
+         alt="avatar"
+         class="w-24 h-24 rounded-full object-cover">
+         }
+         @if(isMyProfile()){
+                          <div class="ml-4 pb-2 flex items-start gap-3">
+            <div>
+              
+        <h2 class="text-xl font-semibold">
+            {{_globalService.user()?.firstName}}   {{_globalService.user()?.lastName}} 
+        </h2>
+        <p class="text-sm text-gray-400">
+          {{_globalService.user()?.username}}
+        </p>
+      </div>
+      </div>
+         }@else {
+
+       <div class="ml-4 flex items-start gap-3">
+       <div>
+                <h2 class="text-xl font-semibold">
+            {{( _globalService.profileUser | async )?.firstName}}   {{( _globalService.profileUser | async )?.lastName}} 
+        </h2>
+        <p class="text-sm text-gray-400">
+          {{( _globalService.profileUser | async )?.username}}
+        </p>
+       </div>
+        <button mat-raised-button color="primary" (click)="openChat();" >Mensaje </button>
+        <button matButton="outlined" class=" xd">Siguiendo </button>
+      </div>
+         }
+    </div>
+    <div>
+      <!-- <button mat-raised-button  class="mr-2 bg-white text-black">Share</button>
+      <button mat-raised-button color="primary">Conectar</button> -->
+        @if(isMyProfile()){
+      <button mat-raised-button color="warn ml-2" (click)="logOut()">Log out</button>
+        }
+    </div>
+  </div>
+
+@if(isMyProfile()){
+    <div class="flex justify-evenly items-center py-8 bg-[#323232] rounded-xl">
+    <div class="text-center cursor-pointer">
+      <p class="text-lg font-bold">
+        {{posts().length}}
+      </p>
+      <p class="text-sm text-gray-400">Post</p>
+    </div>
+    <div class="text-center cursor-pointer" (click)="openFollower()">
+      <p class="text-lg font-bold">
+        {{_globalService.countFollowers.asObservable() | async}}
+      </p>
+      <p class="text-sm text-gray-400">Followers</p>
+    </div>
+    <div class="text-center cursor-pointer " (click)="openFolloweing()" >
+      <p class="text-lg font-bold">
+       {{_globalService.countFollowing.asObservable() | async}}
+      </p>
+      <p class="text-sm text-gray-400">Following</p>
+    </div>
+  </div>
+}@else {
+    <div class="flex justify-evenly items-center py-8 bg-[#323232] rounded-xl">
+    <div class="text-center cursor-pointer">
+      <p class="text-lg font-bold">
+        {{( _globalService.profileUser | async )?.mediaCount}}
+      </p>
+      <p class="text-sm text-gray-400">Post</p>
+    </div>
+    <div class="text-center cursor-pointer" (click)="openFollower()">
+      <p class="text-lg font-bold">
+        {{( _globalService.profileUser | async )?.followersCount}}
+      </p>
+      <p class="text-sm text-gray-400">Followers</p>
+    </div>
+    <div class="text-center cursor-pointer " (click)="openFolloweing()" >
+      <p class="text-lg font-bold">
+       {{( _globalService.profileUser | async )?.followingCount}}
+      </p>
+      <p class="text-sm text-gray-400">Following</p>
+    </div>
+  </div>
+}
+  <app-post [(posts)]="posts"/> 
+</div>

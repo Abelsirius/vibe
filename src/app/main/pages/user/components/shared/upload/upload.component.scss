@@ -1,0 +1,47 @@
+textarea,.hash{
+    border: 1px solid gray !important;
+}
+
+.iconos{
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.posts:hover .iconos{
+    opacity: 1;
+}
+.xd{
+    border: 1px solid #fff !important;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.posts .iconos:hover {
+  background: rgba(12, 12, 12, 0.43); /* #1115 in hex with 0.1 opacity */
+  opacity: 1 °!important;
+}
+.video-controls-hidden::-webkit-media-controls {
+  display: none !important;
+}
+
+.video-controls-hidden:hover::-webkit-media-controls {
+  display: block !important;
+}
+
+/* Para otros navegadores que no usan WebKit */
+.video-controls-hidden {
+  /* Ocultar controles nativos */
+  --controls-display: none;
+}
+
+.video-controls-hidden:hover {
+  /* Mostrar controles nativos en hover */
+  --controls-display: block;
+}
+
+@media screen and (max-height:500px) {
+      .aea{
+        overflow-y: auto;
+        max-height: 300px;
+      }
+}

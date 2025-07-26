@@ -1,0 +1,166 @@
+<div class="flex justify-between items-center ">
+  <h3 class="text-center font-semibold text-[25px] mt-3 pb-3">Publicaciones</h3>
+  @if(_globalService.isMyProfile | async){
+  <button matButton="outlined" class="mt-3 xd text-m cursor-pointer" (click)="uploadPostDialog()">Publicar</button>
+  }
+</div>
+<div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4" @fade>
+  <div *ngFor="let post of posts()" class="object-cover  mb-4 rounded-lg overflow-hidden">
+    @defer (on viewport) {
+    <div class="relative w-full aspect-[9/16] max-h-[500px] group">
+      <ng-container [ngSwitch]="post.mediaType">
+        <!-- Video Post -->
+        <div *ngSwitchCase="'video'" class="relative h-full rounded-xl">
+          <video #videoPlayer
+          [id]="'video-' + post.id"
+          [src]="baseUrl + post.url" (click)="toggleVideoPlay(post.id, videoPlayer)"
+            (mouseenter)="showVideoControls($event)" (mouseleave)="hideVideoControls($event)"
+            class="w-full h-full object-cover cursor-pointer" (ended)="onVideoEnded(post.id)"
+            [attr.controls]="post.showVideoControls ? '' : null">
+            Your browser does not support the video tag.
+          </video>
+
+          <!-- Overlay de controles -->
+          <div
+            class="absolute inset-0 rounded-xl flex flex-col justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/60 to-transparent">
+            <!-- Botones superiores -->
+            <div class="flex justify-end gap-3">
+              <button (click)="toggleComments(post.id); $event.stopPropagation()"
+                class="text-white hover:text-purple-400 text-2xl">
+                <i class="ti ti-message-circle-share"></i>
+              </button>
+              <button class="text-white hover:text-purple-400 text-2xl">
+                <i class="ti ti-heart"></i>
+              </button>
+              <div class="relative group z-50"> <!-- Contenedor relativo para posicionar el overlay -->
+                <!-- Botón principal del volumen (siempre visible) -->
+                <button (click)="toggleMute(post)" (mouseenter)="showVolumeSlider.set(true);$event.stopPropagation() "
+                  (mouseleave)="showVolumeSlider.set(false);$event.stopPropagation()"
+                  class="text-white text-xl p-1 hover:bg-white/10 rounded-full transition">
+                  @if (post.isMuted) {
+                  <i class="ti ti-volume-off"></i>
+                  } @else if (post.volume <= 0.33) { <i class="ti ti-volume-2"></i>
+                    } @else if (post.volume <= 0.66) { <i class="ti ti-volume"></i>
+                      } @else if (post.volume <= 1) { <i class="ti ti-volume"></i>
+                      } @else {
+                      <i class="ti ti-volume-3"></i>
+                      }
+                </button>
+
+                <!-- Slider de volumen (overlay) -->
+                @if (showVolumeSlider()) {
+                <div 
+                @fade
+                (mouseenter)="showVolumeSlider.set(true)" 
+                (mouseleave)="showVolumeSlider.set(false)"
+                  class="absolute top-[38px] bottom-full left-1/2 transform -translate-x-1/2 -translate-y-3 flex flex-col items-center  backdrop-blur-sm px-2 py-3 rounded-lg shadow-xl z-50">
+                  <input type="range" min="0" max="1" step="0.01" [value]="post.volume "
+                    (input)="setVolume(post,$any($event.target).valueAsNumber)"
+                    class="w-4 h-[90px] 
+                    !appearance-none 
+                    !bg-transparent [writing-mode:bt-lr] [-webkit-appearance:slider-vertical] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-runnable-track]:bg-gray-600 [&::-webkit-slider-runnable-track]:rounded-full">
+                   <span class="text-white text-sm mt-2">{{ (post.volume * 100).toFixed(0) }}%</span>
+                </div>
+                }
+              </div>
+            </div>
+
+            <!-- Información del post -->
+            <div class="text-white">
+              <div class="mb-2">
+                <p class="font-semibold capitalize text-lg">{{ post.title }}</p>
+                <p class="text-purple-100 text-sm">{{ post.description }}</p>
+              </div>
+              <p class="text-gray-300 text-xs">{{ post.uploadDate | date:'dd/MM/yyyy'}}</p>
+            </div>
+
+            <!-- Botón de play central -->
+            <button (click)="toggleVideoPlay(post.id, videoPlayer); $event.stopPropagation()"
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white hover:text-purple-400 text-4xl bg-black/50 rounded-full p-3">
+              <i class="ti" [class.ti-player-play]="!post.isPlaying" [class.ti-player-pause]="post.isPlaying"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Image Post -->
+        <div *ngSwitchCase="'image'" class="relative h-full rounded-xl">
+          <img [src]="baseUrl + post.url" alt="{{post.title || 'Post image'}}"
+            class="w-full h-full object-cover rounded-xl">
+
+          <!-- Overlay para imagen -->
+          <div
+            class="absolute inset-0 flex rounded-xl flex-col justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/60 to-transparent">
+            <!-- Botones superiores -->
+            <div class="flex justify-end gap-3">
+              <button (click)="toggleComments(post.id); $event.stopPropagation()"
+                class="text-white hover:text-purple-400 text-2xl">
+                <i class="ti ti-message-circle-share"></i>
+              </button>
+              <button class="text-white hover:text-purple-400 text-2xl">
+                <i class="ti ti-heart"></i>
+              </button>
+            </div>
+
+            <!-- Información del post -->
+            <div class="text-white">
+              <div class="mb-2">
+                <p class="font-semibold capitalize text-lg">{{ post.title }}</p>
+                <p class="text-purple-100 text-sm">{{ post.description }}</p>
+              </div>
+              <p class="text-gray-300 text-xs">{{ post.uploadDate | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    }@placeholder {
+    <div class="aspect-[9/16] w-full bg-gray-800/40 animate-pulse rounded-xl"></div>
+
+    }
+    <!-- Sección de comentarios -->
+    @if (commentsState()[post.id]?.show) {
+    <div @fade class="px-2.5 ">
+      <div class="border-t pt-5 max-h-[250px] overflow-y-auto custom-scroll">
+        <h3 class="text-base font-semibold">Comentarios</h3>
+        @for (item of commentsState()[post.id]?.comments; track $index) {
+        <div class="flex my-2 items-start gap-3 bg-white/5 p-3 rounded-xl shadow-sm">
+          <!-- Avatar -->
+          <img [src]="item.user.avatarUrl || 'https://ui-avatars.com/api/?name=' + item.user.username" alt="avatar"
+            class="w-9 h-9 rounded-full object-cover">
+
+          <!-- Contenido del comentario -->
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-white">
+              {{ item.user.username }}
+            </span>
+            <p class="text-sm text-white/90">
+              {{ item.content }}
+            </p>
+            <span class="text-xs text-gray-400 mt-1">
+              {{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </span>
+          </div>
+        </div>
+        }@empty {
+        <div class="mt-1 text-sm">
+          <span class="text-xs">
+            Rompe el hielo.
+          </span>
+        </div>
+        }
+
+      </div>
+      <div class="mt-4 flex gap-2">
+        <img
+          [src]="_globalService.user()?.avatarUrl || 'https://ui-avatars.com/api/?name=' + _globalService.user()?.username"
+          alt="avatar" class="w-9 h-9 rounded-full object-cover">
+        <input type="text" placeholder="Agregar un comentario..." (key.enter)="postCommnet(post.comentario,post.id)" [(ngModel)]="post.comentario"
+          class="w-full p-2 border text-black rounded text-m font-medium">
+        <button (click)="postCommnet(post.comentario,post.id)"
+          class="ti ti-message-circle-share bg-primary px-4 py-2 rounded-lg hover:bg-purple-800 disabled:bg-gray-400">
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+ background-image: #37283d !important;
+}
+.borde{
+    border-radius: 14px;
+    border: 1px solid white;
+}
+.login-card {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+.back-button {
+  position: absolute;
+  top: 16px;   /* Ajusta según sea necesario */
+  left: 16px;  /* Ajusta según sea necesario */
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;  /* Asegura que esté encima de otros elementos */
+}

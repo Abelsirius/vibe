@@ -1,0 +1,54 @@
+<div class="w-full p-4 gap-4 min-w-[300px] max-w-screen-2xl m-auto bg-[#2a2929]">
+@if(logeado()){
+  <app-user />
+}@else{
+<div class="login-container bg-[#2a2929]">
+  <mat-card class="login-card flex bg-transparent">
+    <mat-card-header class="w-full flex justify-center pb-6">
+      <mat-card-title class="flex flex-col justify-center items-center gap-2">
+         <h1 class="text-white font-semibold text-[35px]">Vibe<span class="text-primary">Me</span></h1>
+         <p class="text-white font-normal text-base">Join now to share your vibes</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+          <mat-label>Nombres</mat-label>
+          <input matInput placeholder="Nombres" formControlName="firstName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+          <mat-label>Apellidos</mat-label>
+          <input matInput placeholder="Apellidos" formControlName="lastName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput placeholder="Usuario" formControlName="username" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput placeholder="Correo electrónico" formControlName="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Contraseña" formControlName="password" type="password" required>
+        </mat-form-field>
+         <div class=" flex flex-row flex-wrap gap-3">
+              <button mat-raised-button color="primary" class="flex-1 min-w-[220px]" type="submit" [disabled]="loginForm.invalid" (click)="registrar()">Crear</button>
+              <button mat-raised-button color="primary"  class="flex-1 min-w-[220px]" [routerLink]="['/login']" routerLinkActive="router-link-active" >Iniciar sesion</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+}
+
+</div>
+
+
+
+
+

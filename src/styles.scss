@@ -1,0 +1,205 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url(./themes/_matFormField.scss);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root {
+	--primary: #9F6BFF;
+	--accent: #d32f2f;
+	--secondary: #1d72b8;
+	--default: #f8f8f8;
+	--success: #28c76f;
+	--textPrimary: #1e293b;
+	--textDefault: #64748b;
+	--mdc-shape-small: 12px;
+	--mdc-shape-medium: 12px;
+	--mdc-checkbox-state-layer-size: 30px;
+	--radius: 12px;
+	--mdc-protected-button-container-shape: 12px !important;
+		--warn: #d32f2f;
+	--excel: #006d3b;
+	--font-primary: #1e293b;
+	--font-secondary: #647488;
+	--mdc-shape-small: 13px;
+	--mdc-shape-medium: 13px;
+	--mdc-checkbox-state-layer-size: 30px;
+	--radius: 12px;
+	--mdc-protected-button-container-shape: 12px !important;
+	--default: #f8f8f8;
+	--mat-full-pseudo-checkbox-selected-icon-color: #4e94ec;
+	--mdc-switch-unselected-icon-color:#383838;
+	--mat-form-field-container-height: 25px;
+	--mat-filled-button-icon-spacing: 0px;
+	--mat-tooltip-font-family: 'Inter var', sans-serif;
+	--mat-form-field-container-vertical-padding:8px;
+    --mat-dialog-container-max-width : 'fit-content';
+    --mdc-checkbox-state-layer-size :25px;
+    --mat-form-field-container-vertical-padding:8px;
+    --mat-form-field-container-height: 35px;
+    --mdc-filled-text-field-container-color:transparent;
+    --mdc-filled-text-field-container-shape:12px;
+    --mat-text-button-icon-spacing : 0px;
+    --mdc-filled-text-field-active-indicator-height: 0;
+    --mat-select-panel-background-color:white;
+    --mat-tree-container-background-color : #fff;
+    --mdc-protected-button-container-color: #EBEEF3;
+    --mdc-protected-button-label-text-color:#64748B;
+    --mat-table-row-item-outline-width:0;
+    --mat-app-elevation-shadow-level-8 : none;
+    --mat-option-label-text-line-height: 20px;
+    --mat-option-label-text-size: 14px;
+    --mat-option-label-text-tracking: normal;
+    --mat-option-label-text-weight: 400;
+    --mat-select-container-elevation-shadow :0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+	--primary: #9F6BFF;
+	--accent: #d32f2f;
+	--secondary: #1d72b8;
+	--default: #f8f8f8;
+	--success: #28c76f;
+	--textPrimary: #1e293b;
+	--textDefault: #64748b;
+	--mdc-shape-small: 12px;
+	--mdc-shape-medium: 12px;
+	--mdc-checkbox-state-layer-size: 30px;
+	--radius: 12px;
+	--mdc-protected-button-container-shape: 12px !important;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
+	border: none;
+	outline: none;
+}
+html {
+	scroll-behavior: inherit;
+	font-size: 16px;
+}
+html,
+body {
+	background-color: #2a2929;
+	position: relative;
+	letter-spacing: normal;
+	font-family:
+		'Montserrat',
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Helvetica Neue,
+		Arial,
+		Noto Sans,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji',
+		Segoe UI Symbol,
+		'Noto Color Emoji';
+	font-feature-settings: 'salt' !important;
+	-webkit-font-feature-settings: 'salt' !important;
+	-moz-font-feature-settings: 'salt' !important;
+}
+@layer components {
+	.card {
+		@apply w-full  flex flex-col p-4 shadow rounded-xl bg-white;
+	}
+}
+.img-radius-doc {
+	background-color: white;
+	height: 40px;
+	width: 40px;
+	border: 0;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	border-radius: 50%;
+	background-size: 100% auto;
+	object-fit: contain;
+	overflow: hidden;
+	transition: 1s;
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	-ms-transition: 1s;
+	-o-transition: 1s;
+}
+
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+	background-color: #8A4DEB !important;
+	border-color: #8A4DEB !important;
+	
+}
+.mat-pseudo-checkbox-full,.mdc-checkbox__background{
+    border-width: 1px !important;
+}
+.mat-input-element:-webkit-autofill,
+.mat-input-element:-webkit-autofill:focus {
+  background-color: transparent !important; /* Eliminar el fondo blanco */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; /* Eliminar el sombreado */
+}
+
+.mat-input-element:-moz-autofill {
+  background-color: transparent !important; /* Eliminar el fondo blanco en Firefox */
+  -moz-box-shadow: 0 0 0px 1000px transparent inset !important; /* Eliminar el sombreado */
+}
+
+.custom-modalbox {
+	max-width: 95vw !important;
+}
+.custom-modalbox .mat-mdc-dialog-container {
+	border-radius: var(--mdc-shape-small, 4px);
+	-webkit-border-radius: var(--mdc-shape-small, 4px);
+	-moz-border-radius: var(--mdc-shape-small, 4px);
+	-ms-border-radius: var(--mdc-shape-small, 4px);
+	-o-border-radius: var(--mdc-shape-small, 4px);
+}
+.custom-modalbox .mat-mdc-dialog-container .mdc-dialog__surface {
+	border-radius: var(--mdc-shape-small, 4px);
+	-webkit-border-radius: var(--mdc-shape-small, 4px);
+	-moz-border-radius: var(--mdc-shape-small, 4px);
+	-ms-border-radius: var(--mdc-shape-small, 4px);
+	-o-border-radius: var(--mdc-shape-small, 4px);
+}
+
+.custom-modalbox .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-title]:before {
+	content: none;
+}
+.custom-modalbox .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-title] {
+	margin: 0;
+	padding: 8px 8px 8px 24px;
+	color: white;
+}
+.custom-modalbox .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-content] {
+	margin: 0;
+	padding: 8px 16px 8px 24px;
+}
+
+.custom-modalbox .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-actions] {
+	margin: 0;
+	border: 0px;
+	padding: 8px 16px 16px 24px;
+	min-height: min-content;
+}
+
+.custom-modalbox.paddingSmall .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-title] {
+	margin: 0;
+	padding: 8px 8px 8px 24px;
+	background-color: var(--primary);
+	color: white;
+}
+.custom-modalbox.paddingSmall .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-content] {
+	margin: 0;
+	padding: 0px;
+}
+
+.custom-modalbox.paddingSmall .mat-mdc-dialog-container .mdc-dialog__surface [mat-dialog-actions] {
+	margin: 0;
+	border: 0px;
+	padding: 8px 16px 16px 24px;
+	min-height: min-content;
+}

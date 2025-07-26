@@ -1,0 +1,68 @@
+textarea,.hash{
+    border: 1px solid gray !important;
+}
+
+.iconos{
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.posts:hover .iconos{
+    opacity: 1;
+}
+.xd{
+    border: 1px solid #fff !important;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.posts .iconos:hover {
+  background: rgba(12, 12, 12, 0.496); /* #1115 in hex with 0.1 opacity */
+  opacity: 1 °!important;
+}
+.video-controls-hidden::-webkit-media-controls {
+  display: none !important;
+}
+
+.video-controls-hidden:hover::-webkit-media-controls {
+  display: block !important;
+}
+
+/* Para otros navegadores que no usan WebKit */
+.video-controls-hidden {
+  /* Ocultar controles nativos */
+  --controls-display: none;
+}
+
+.video-controls-hidden:hover {
+  /* Mostrar controles nativos en hover */
+  --controls-display: block;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(168, 85, 247, 0.6); /* tailwind purple-500 */
+}
+
+/* Firefox */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.6) transparent;
+}
+

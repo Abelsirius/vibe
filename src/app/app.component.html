@@ -1,0 +1,9 @@
+
+   @if(isLoading$ | async){
+ <div class="spinner-overlay">
+      <div class="spinner"></div>
+    </div>
+   } 
+<main class="container flex flex-col max-w-full min-w-[320px] h-screen mx-auto bg-[#2a2929]">
+<router-outlet />
+</main>

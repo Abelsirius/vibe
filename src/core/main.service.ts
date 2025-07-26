@@ -8,8 +8,8 @@ import { ILogin, IRegister } from '../app/main/pages/home/interfaces/home.interf
 })
 export class MainService {
   public _http = inject(HttpClient);
-  public url = 'http://vibeapi.somee.com/';
-  public urlv1 = 'http://vibeapi.somee.com/';
+  public url = 'https://vibeapi.somee.com/';
+  public urlv1 = 'https://vibeapi.somee.com/';
   constructor() { }
     login(paramsa:ILogin):Observable<any>{
     const params = {

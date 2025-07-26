@@ -27,7 +27,7 @@ export interface Message {
   providedIn: 'root'
 })
 export class ChatService {
-  private hubUrl = 'http://vibeapi.somee.com';
+  private hubUrl = 'https://vibeapi.somee.com';
   private hubConnection!: signalR.HubConnection;
   
   // Signals para estado reactivo
